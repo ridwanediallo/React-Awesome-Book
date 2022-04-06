@@ -1,22 +1,21 @@
-import logo from './logo.svg';
 import './App.css';
 import {Container, Navbar, NavbarBrand } from 'reactstrap';
+import AddBook from './components/AddBook';
 
 function App() {
   return (
-    <Container>
-      <div className="App">
+
+      <div >
         <Navbar dark color="primary">
           <div className="container">
             <NavbarBrand href="/">React Bootstrap Project Setup</NavbarBrand>
           </div>
         </Navbar>
+          <AddBook />
       </div>
-    </Container>
+
   );
 }
 
 export default App;
-
-
 
