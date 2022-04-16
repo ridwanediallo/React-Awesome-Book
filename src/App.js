@@ -6,14 +6,29 @@ import NavigationBar from './components/NavigationBar';
 import BooksList from './components/BooksList';
 import { Route, Routes } from 'react-router-dom';
 import Contacts from './Contacts';
+
+
 function App() {
   const [booksList, setBooksList] = useState([]);
 
-  const addBookHandler = (title, author) => {
-    setBooksList((prevBookList) => {
-      return [...prevBookList, { id: Math.random().toString(), title, author }];
-    });
-  };
+  
+
+  async function addBookHandler(book) {
+    const response = await fetch(
+      'https://react-http-project-35727-default-rtdb.firebaseio.com/books.json', {
+        method: 'POST',
+        body: JSON.stringify(book),
+        headers: { 'Content-Type': 'application/json'}
+      });
+
+      const data = await response.json();
+  }
+
+  // const addBookHandler = (title, author) => {
+  //   setBooksList((prevBookList) => {
+  //     return [...prevBookList, { id: Math.random().toString(), title, author }];
+  //   });
+  // };
 
   return (
     <>
@@ -38,5 +53,6 @@ function App() {
 }
 
 export default App;
+
 
 

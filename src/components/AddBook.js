@@ -9,7 +9,7 @@ function AddBook({onAddBook}) {
 
    const addBooksHandler = (event) => {
        event.preventDefault();
-       onAddBook(title, author)
+       onAddBook({id: Math.random().toString(), title, author})
 
        setTitle('');
        setAuthor('');
