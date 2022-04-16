@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import './App.css';
 import { Container, Navbar, NavbarBrand } from 'reactstrap';
 import AddBook from './components/AddBook';
@@ -9,9 +9,31 @@ import Contacts from './Contacts';
 
 
 function App() {
-  const [booksList, setBooksList] = useState([]);
+  const [books, setBooks] = useState([]);
 
-  
+      const fetchBooks = useCallback(async () => {
+        const response = await fetch(
+          'https://react-http-project-35727-default-rtdb.firebaseio.com/books.json'
+        );
+
+        const data =  await response.json();
+        const loadedBooks = [];
+        for(let key in data) {
+          loadedBooks.push({
+            id: data[key].id,
+            title: data[key].title,
+            author: data[key].author
+          });
+        }
+        console.log(loadedBooks);
+        setBooks(loadedBooks);
+      }, []);
+
+  useEffect(() => {
+   fetchBooks();
+  }, [fetchBooks]);
+
+
 
   async function addBookHandler(book) {
     const response = await fetch(
@@ -23,12 +45,6 @@ function App() {
 
       const data = await response.json();
   }
-
-  // const addBookHandler = (title, author) => {
-  //   setBooksList((prevBookList) => {
-  //     return [...prevBookList, { id: Math.random().toString(), title, author }];
-  //   });
-  // };
 
   return (
     <>
@@ -45,7 +61,7 @@ function App() {
           path="/addbook"
           element={<AddBook onAddBook={addBookHandler} />}
         />
-        <Route path="/booksList" element={<BooksList books={booksList} />} />
+        <Route path="/booksList" element={<BooksList books={books} />} />
         <Route path="/contacts" element={<Contacts />} />
       </Routes>
     </>
@@ -53,6 +69,8 @@ function App() {
 }
 
 export default App;
+
+
 
 
 
