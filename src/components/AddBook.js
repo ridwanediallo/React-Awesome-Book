@@ -49,7 +49,7 @@ function AddBook({onAddBook}) {
           </div>
         </div>
         <button type="submit" className="btn btn-primary">
-          Primary
+          Submit Book
         </button>
       </form>
     </Container>

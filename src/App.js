@@ -35,6 +35,7 @@ function App() {
 
 
 
+
   async function addBookHandler(book) {
     const response = await fetch(
       'https://react-http-project-35727-default-rtdb.firebaseio.com/books.json', {
@@ -45,6 +46,11 @@ function App() {
 
       const data = await response.json();
   }
+
+   const removeBookHandler = (item) => {
+     setBooks(books.filter((i) => i.id !== item));
+      // setBooks(remainingBooks)
+   };
 
   return (
     <>
@@ -61,7 +67,7 @@ function App() {
           path="/addbook"
           element={<AddBook onAddBook={addBookHandler} />}
         />
-        <Route path="/booksList" element={<BooksList books={books} />} />
+        <Route path="/booksList" element={<BooksList books={books} removeBook={removeBookHandler} />} />
         <Route path="/contacts" element={<Contacts />} />
       </Routes>
     </>
@@ -69,6 +75,8 @@ function App() {
 }
 
 export default App;
+
+
 
 
 

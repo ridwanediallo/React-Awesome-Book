@@ -1,16 +1,23 @@
 import React from 'react';
 import { Container } from 'reactstrap';
 
-function BooksList({ books }) {
+function BooksList({ books, removeBook }) {
   return (
     <Container>
       <ul className="list-group">
         {books.map((book) => (
-          <li key={book.id} className="list-group-item d-flex justify-content-between">
+          <li
+            key={book.id}
+            className="list-group-item d-flex justify-content-between"
+          >
             <p>
               {book.title} by {book.author}
             </p>
-            <button type="button" className="btn btn-danger">
+            <button
+              type="button"
+              className="btn btn-danger"
+              onClick={() => removeBook(book.id)}
+            >
               Remove
             </button>
           </li>
@@ -21,6 +28,7 @@ function BooksList({ books }) {
 }
 
 export default BooksList;
+
 
 
 
